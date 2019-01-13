@@ -9,6 +9,11 @@
 #include <proto/graphics.h>
 #endif
 
+#ifdef _MSC_VER
+#include "windows.h"
+#define BOOL bool
+#endif
+
 struct retroSprite;
 struct retroSpriteObject;
 

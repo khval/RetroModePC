@@ -1,6 +1,8 @@
 #ifndef RETROMODE_INTERFACE_DEF_H
 #define RETROMODE_INTERFACE_DEF_H
 
+#define BOOL bool
+
 	struct retroVideo * retroAllocVideo( struct Window * window);
 	void retroFreeVideo( struct retroVideo * video);
 	void retroClearVideo( struct retroVideo * video);
