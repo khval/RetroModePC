@@ -4,7 +4,7 @@ modules = retroFreeSprite.cpp \
 			retroLoadSprite.cpp
 
 all: $(modules:.cpp=.o)
-	ar r retromodelib.a $(modules:.cpp=.o) 
+	ar -rsc retromodelib.a $(modules:.cpp=.o) 
 
 
 %.o: %.cpp
