@@ -1,5 +1,7 @@
 
 
+define = -DAMIGALIBSELF=""
+
 modules = retroFreeSprite.cpp \
 			retroLoadSprite.cpp
 
@@ -8,7 +10,7 @@ all: $(modules:.cpp=.o)
 
 
 %.o: %.cpp
-		g++ -c $(@:.o=.cpp) -o $@
+		g++ $(define) -c $(@:.o=.cpp) -o $@
 
 
 clean:

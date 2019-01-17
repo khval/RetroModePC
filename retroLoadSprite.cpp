@@ -39,7 +39,7 @@
 */
 
 
-struct retroSprite * _retromode_retroLoadSprite(struct RetroModeIFace *Self, FILE *fd, cust_fread_t cust_fread)
+struct retroSprite * _retromode_retroLoadSprite( AMIGALIBSELF FILE *fd, cust_fread_t cust_fread)
 {
 #ifdef __amigaos4__
 	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
