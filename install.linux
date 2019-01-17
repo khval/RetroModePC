@@ -2,5 +2,5 @@
 
 cp retromode_lib.h /usr/local/include/
 cp retromode.h /usr/local/include/
-cp retromode.a /usr/local/lib
+cp retromodelib.a /usr/local/lib
 
