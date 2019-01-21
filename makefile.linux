@@ -2,8 +2,96 @@
 
 define = -DAMIGALIBSELF=""
 
-modules = retroFreeSprite.cpp \
-			retroLoadSprite.cpp
+modules = AfterEffectAdjustRGB.cpp \
+		AfterEffectDrawSrpites.cpp \
+		AfterEffectScanline.cpp \
+		Obtain.cpp \
+		Release.cpp \
+		retroAllocDoubleBuffer.cpp \
+		retroAllocFrame.cpp \
+		retroAllocSprite.cpp \
+		retroAllocSpriteObjects.cpp \
+		retroAllocVideo.cpp \
+		retroAndClear.cpp \
+		retroApplyScreen.cpp \
+		retroBAR.cpp \
+		retroBarRounded.cpp \
+		retroBitmapBlit.cpp \
+		retroBobble.cpp \
+		retroBoing.cpp \
+		retroBox.cpp \
+		retroCircle.cpp \
+		retroCircleFilled.cpp \
+		retroClearVideo.cpp \
+		retroCloseScreen.cpp \
+		retroColorRange.cpp \
+		retroCycleColorsDown.cpp \
+		retroCycleColorsUp.cpp \
+		retroCycleOff.cpp \
+		retroDeleteFlash.cpp \
+		retroDmaVideo.cpp \
+		retroDrawFrame.cpp \
+		retroDrawVideo.cpp \
+		retroEllipse.cpp \
+		retroFadeScreen.cpp \
+		retroFill.cpp \
+		retroFlash.cpp \
+		retroFreeFrame.cpp \
+		retroFreeSprite.cpp \
+		retroFreeSpriteObject.cpp \
+		retroFreeSpriteObjects.cpp \
+		retroFreeVideo.cpp \
+		retroGetSprite.cpp \
+		retroLine.cpp \
+		retroLoadABKSprite.cpp \
+		retroLoadSprite.cpp \
+		retroModeBadVideoSync.cpp \
+		retroOpenScreen.cpp \
+		retroOrBAR.cpp \
+		retroOrBarRounded.cpp \
+		retroOrBitmapBlit.cpp \
+		retroOrBlit.cpp \
+		retroOrBox.cpp \
+		retroOrCircle.cpp \
+		retroOrCircleFilled.cpp \
+		retroOrFill.cpp \
+		retroOrLine.cpp \
+		retroOrScreenBlit.cpp \
+		retroOrStar.cpp \
+		retroOrTriangle.cpp \
+		retroPasteSprite.cpp \
+		retroPixel.cpp \
+		retroPoint.cpp \
+		retroPolyGonArray.cpp \
+		retroPolyGon.cpp \
+		retroPolyLine.cpp \
+		retroRainbowColorRange.cpp \
+		retroRainbow.cpp \
+		retroRain.cpp \
+		retroScreenBlit.cpp \
+		retroScreenClone.cpp \
+		retroScreenColor.cpp \
+		retroScreenDetach.cpp \
+		retroScreenOffset.cpp \
+		retroScreenToBack.cpp \
+		retroScreenToFront.cpp \
+		retroSetRainbow.cpp \
+		retroSetVideoColor.cpp \
+		retroShift.cpp \
+		retroSprite.cpp \
+		retroStar.cpp \
+		retroThickLine.cpp \
+		retroTriangle.cpp \
+		retroXorBAR.cpp \
+		retroXorBarRounded.cpp \
+		retroXorBitmapBlit.cpp \
+		retroXorBox.cpp \
+		retroXorCircle.cpp \
+		retroXorCircleFilled.cpp \
+		retroXorLine.cpp \
+		retroXorScreenBlit.cpp \
+		retroXorTriangle.cpp \
+		retroZoom.cpp 
 
 all: $(modules:.cpp=.o)
 	ar -rsc retromodelib.a $(modules:.cpp=.o) 
