@@ -53,7 +53,7 @@
 *
 */
 
-unsigned char _retromode_retroPoint(struct RetroModeIFace *Self,  struct retroScreen * screen, int x, int y)
+unsigned char retroPoint(  struct retroScreen * screen, int x, int y)
 {
 	if (x<0) return 0;
 	if (y<0) return 0;

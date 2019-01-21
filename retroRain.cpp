@@ -57,7 +57,7 @@
 *
 */
 
-void _retromode_retroRain(struct RetroModeIFace *Self,
+void retroRain(
        struct retroVideo * video,
        int rainbowNumber,
        int line,

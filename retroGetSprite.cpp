@@ -62,10 +62,10 @@
 */
 
 
-struct retroFrame * _retromode_retroAllocFrame(struct RetroModeIFace *Self,
+struct retroFrame * retroAllocFrame(
        struct retroScreen * screen, int x1, int y1, int x2, int y2, int hotspotX, int hotspotY);
 
-void _retromode_retroGetSprite(struct RetroModeIFace *Self,
+void retroGetSprite(
        struct retroScreen * screen,
        struct retroSprite * sprite,
        int image,
@@ -74,7 +74,7 @@ void _retromode_retroGetSprite(struct RetroModeIFace *Self,
        int x1,
        int y1)
 {
-	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
+
 	struct retroFrameHeader *frame;
 	int ypos;
 	int destination_x0 = 0,destination_y0 = 0;
@@ -94,14 +94,14 @@ void _retromode_retroGetSprite(struct RetroModeIFace *Self,
 		int old_frames = sprite->number_of_frames;
 		int new_frames_count  = image+1;
 
-		new_frames = libBase -> IExec -> AllocVecTags(  
+		new_frames = sys_alloc_clear(  
 							sizeof(struct retroFrameHeader) *  new_frames_count,
 							AVT_Type, MEMF_SHARED, AVT_ClearWithValue, 0, TAG_END );
 
 		if (new_frames)
 		{
 			memcpy( new_frames, sprite -> frames, sizeof(struct retroFrameHeader) *  old_frames );
-			libBase -> IExec -> FreeVec( sprite -> frames );
+			sys_free( sprite -> frames );
 			sprite -> frames = new_frames;
 			sprite -> number_of_frames = new_frames_count;
 		}
@@ -116,8 +116,8 @@ void _retromode_retroGetSprite(struct RetroModeIFace *Self,
 	frame -> bytesPerRow  = frame -> Width;
 
 	sizeOfChunky = frame -> bytesPerRow  * frame -> Height;
-	if ( frame -> data ) libBase -> IExec -> FreeVec( (void *) frame -> data );
-	frame -> data = (char *) libBase -> IExec -> AllocVecTags(  sizeOfChunky, AVT_Type, MEMF_SHARED, AVT_ClearWithValue, 0, TAG_END );
+	if ( frame -> data ) sys_free( (void *) frame -> data );
+	frame -> data = (char *) sys_alloc_clear(  sizeOfChunky, AVT_Type, MEMF_SHARED, AVT_ClearWithValue, 0, TAG_END );
 
 	{
 		int width = frame -> Width;

@@ -13,15 +13,13 @@
  *
  */
 
-
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
+#include "stdafx.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
-#include <libbase.h>
+#include <math.h>
 
 /****** retromode/main/retroAllocSprite ******************************************
 *
@@ -54,14 +52,11 @@
 
 
 
-void _retromode_retroAllocSprite(struct RetroModeIFace *Self, struct retroVideo * video, int numberOfSprites)
+void retroAllocSprite( struct retroVideo * video, int numberOfSprites)
 {
-	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
+	FreeSprites( video );
 
-	Self -> FreeSprites( video );
-
-	video -> sprites = (struct retroSpriteObject **) AllocVecTags( sizeof(struct retroSpriteObject) * numberOfSprites, 
-						AVT_Type, MEMF_SHARED, AVT_ClearWithValue, 0 , TAG_END );
+	video -> sprites = (struct retroSpriteObject **) sys_alloc_clear( sizeof(struct retroSpriteObject) * numberOfSprites );
 
 	if (video -> sprites)
 	{

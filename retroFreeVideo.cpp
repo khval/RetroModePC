@@ -13,17 +13,14 @@
  *
  */
 
+#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
+#include <math.h>
 
-#include "libbase.h"
 
 /****** retromode/main/retroFreeVideo ******************************************
 *
@@ -53,10 +50,10 @@
 *
 */
 
-void _retromode_retroFreeVideo(struct RetroModeIFace *Self,
+void retroFreeVideo(
        struct retroVideo * video)
 {
-	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
+
 	int c;
 
 	Self -> retroFreeSpriteObjects( video );
@@ -71,17 +68,17 @@ void _retromode_retroFreeVideo(struct RetroModeIFace *Self,
 	{
 		if (video -> rainbow[c].table)
 		{
-			libBase -> IExec ->FreeVec (video -> rainbow[c].table);
+			libBase -> IExec ->sys_free (video -> rainbow[c].table);
 			video -> rainbow[c].table = NULL;
 		}
 	}
 
 	if (video->Memory)
 	{
-		libBase -> IExec ->FreeVec (video->Memory);
+		libBase -> IExec ->sys_free (video->Memory);
 		video->Memory = NULL;
 	}
 
-	libBase -> IExec ->FreeVec ( (void *) video );
+	libBase -> IExec ->sys_free ( (void *) video );
 }
 

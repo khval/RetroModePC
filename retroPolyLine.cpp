@@ -57,15 +57,15 @@
 *
 */
 
-void _retromode_retroLine(struct RetroModeIFace *Self, struct retroScreen * screen, int x1, int y1, int x2, int y2, unsigned char color);
+void retroLine( struct retroScreen * screen, int x1, int y1, int x2, int y2, unsigned char color);
 
-void _retromode_retroPolyLine(struct RetroModeIFace *Self,
+void retroPolyLine(
        struct retroScreen * screen,
        unsigned char color,
         ...)
 {
 	va_list list;
-	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
+
 
 
 	int x=0,y=0,lx=0,ly=0;
@@ -101,7 +101,7 @@ void _retromode_retroPolyLine(struct RetroModeIFace *Self,
 
 			if (count > 1 )
 			{
-				_retromode_retroLine(Self,  screen, lx, ly, x, y, color);
+				retroLine(Self,  screen, lx, ly, x, y, color);
 			}
 		}
 		i++;

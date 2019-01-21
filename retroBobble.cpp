@@ -13,14 +13,11 @@
  *
  */
 
+#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
 #include <math.h>
 
@@ -60,10 +57,8 @@
 *
 */
 
-unsigned char _retromode_retroPoint(struct RetroModeIFace *Self,  struct retroScreen * screen, int x, int y);
-void _retromode_retroPixel(struct RetroModeIFace *Self, struct retroScreen * screen, int x, int y, unsigned char color);
 
-void _retromode_retroBobble(struct RetroModeIFace *Self,
+void retroBobble(
        struct retroScreen * fromScreen,
        int fromX,
        int fromY,
@@ -90,17 +85,17 @@ void _retromode_retroBobble(struct RetroModeIFace *Self,
 			{
 				sourceX = sin( (M_PI/2.0f) * destinationX / toR ) * fromR ;
 
-				color = _retromode_retroPoint( Self, fromScreen, sourceX + fromX, -sourceY + fromY ) ;
-				_retromode_retroPixel( Self, toScreen, destinationX + toX, -destinationY +toY, color);
+				color = retroPoint( fromScreen, sourceX + fromX, -sourceY + fromY ) ;
+				retroPixel( toScreen, destinationX + toX, -destinationY +toY, color);
 
-				color = _retromode_retroPoint( Self, fromScreen, sourceX + fromX, sourceY + fromY );
-				_retromode_retroPixel( Self, toScreen, destinationX + toX, destinationY +toY, color);
+				color = retroPoint( fromScreen, sourceX + fromX, sourceY + fromY );
+				retroPixel( toScreen, destinationX + toX, destinationY +toY, color);
 
-				color = _retromode_retroPoint( Self, fromScreen, -sourceX + fromX, -sourceY + fromY ) ;
-				_retromode_retroPixel( Self, toScreen, -destinationX + toX, -destinationY +toY, color);
+				color = retroPoint( fromScreen, -sourceX + fromX, -sourceY + fromY ) ;
+				retroPixel( toScreen, -destinationX + toX, -destinationY +toY, color);
 
-				color = _retromode_retroPoint( Self, fromScreen, -sourceX + fromX, sourceY + fromY ) ;
-				_retromode_retroPixel( Self, toScreen, -destinationX + toX, destinationY +toY, color);
+				color = retroPoint( fromScreen, -sourceX + fromX, sourceY + fromY ) ;
+				retroPixel( toScreen, -destinationX + toX, destinationY +toY, color);
 
 			}
 		}

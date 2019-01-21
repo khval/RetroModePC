@@ -56,7 +56,7 @@
 *
 */
 
-void _retromode_retroRainbow(struct RetroModeIFace *Self,
+void retroRainbow(
        struct retroVideo * video,
        int rainbowNumber,
        int offset,

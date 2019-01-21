@@ -13,16 +13,13 @@
  *
  */
 
+#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
-#include <libbase.h>
+#include <math.h>
 
 /****** retromode/main/retroAllocSpriteObjects ******************************************
 *
@@ -54,11 +51,11 @@
 *
 */
 
-void _retromode_retroAllocSpriteObjects(struct RetroModeIFace *Self,
+void retroAllocSpriteObjects(
        struct retroVideo * video,
        int numberOfSprites)
 {
-	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
+
 
 	Self -> retroFreeSpriteObjects( video );
 

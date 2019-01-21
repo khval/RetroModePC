@@ -1,16 +1,12 @@
 
 
-define = -DAMIGALIBSELF=""
+define = 
 
 modules = AfterEffectAdjustRGB.cpp \
 		AfterEffectDrawSrpites.cpp \
 		AfterEffectScanline.cpp \
-		Obtain.cpp \
-		Release.cpp \
 		retroAllocDoubleBuffer.cpp \
 		retroAllocFrame.cpp \
-		retroAllocSprite.cpp \
-		retroAllocSpriteObjects.cpp \
 		retroAllocVideo.cpp \
 		retroAndClear.cpp \
 		retroApplyScreen.cpp \
@@ -91,6 +87,8 @@ modules = AfterEffectAdjustRGB.cpp \
 		retroXorLine.cpp \
 		retroXorScreenBlit.cpp \
 		retroXorTriangle.cpp \
+		retroAllocSprite.cpp \
+		retroAllocSpriteObjects.cpp \
 		retroZoom.cpp 
 
 all: $(modules:.cpp=.o)

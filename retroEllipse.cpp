@@ -13,14 +13,11 @@
  *
  */
 
+#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
 #include <math.h>
 
@@ -59,7 +56,7 @@
 *
 */
 
-void _retromode_retroEllipse(struct RetroModeIFace *Self,
+void retroEllipse(
        struct retroScreen * screen,
        int x,
        int y,
@@ -100,7 +97,7 @@ void _retromode_retroEllipse(struct RetroModeIFace *Self,
 		xx = (vxx * tx) + (vyx * ty) + x;
 		yy = (vxy * tx) + (vyy * ty) + y;
 
-		Self->retroLine( screen, lx, ly, xx, yy, color );
+		retroLine( screen, lx, ly, xx, yy, color );
 
 		lx = xx;
 		ly = yy;

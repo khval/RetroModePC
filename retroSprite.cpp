@@ -57,14 +57,14 @@
 *
 */
 
-void _retromode_retroSprite(struct RetroModeIFace *Self,
+void retroSprite(
        struct retroVideo * video,
        int number,
        int x,
        int y,
        int image)
 {
-//	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
+//
 //	libBase->IDOS->Printf("video -> sprites[%ld].sprite = %lx\n",number, video -> sprites[number].sprite);
 
 	if (video -> sprites[number].sprite)

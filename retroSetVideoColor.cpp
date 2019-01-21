@@ -57,7 +57,7 @@
 *
 */
 
-void _retromode_retroSetVideoColor(struct RetroModeIFace *Self,
+void retroSetVideoColor(
        struct retroVideo * video,
        struct retroRGB * RGB,
        int color,

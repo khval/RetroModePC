@@ -13,17 +13,13 @@
  *
  */
 
+#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
-
-#include "libbase.h"
+#include <math.h>
 
 /****** retromode/main/retroDmaVideo ******************************************
 *
@@ -53,14 +49,16 @@
 *
 */
 
-void _retromode_retroDmaVideo(struct RetroModeIFace *Self,
+void retroDmaVideo(
        struct retroVideo * video)
 {
-	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
 
+#if 0
 	// move gfx from system mem to video mem.
 
 	libBase -> IGraphics -> WritePixelArray( (uint8 * ) video->Memory, 0, 0, video->BytesPerRow, PIXF_A8R8G8B8, 
 			&video->rp, 0,0, video->width,video->height);
+#endif
+
 }
 

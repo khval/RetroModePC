@@ -60,14 +60,14 @@
 */
 
 
-void _retromode_retroTriangle(struct RetroModeIFace *Self,
+void retroTriangle(
        struct retroScreen * screen, int x1,int y1, int x2, int y2, int x3,int y3, unsigned char color);
 
 #define get_xy( vector,  r ) \
 	v ## vector ## x = (-cos(angel_ ## vector) * r) + x; \
 	v ## vector ## y = (sin(angel_ ## vector) * r) + y; 
  
-void _retromode_retroStar(struct RetroModeIFace *Self,
+void retroStar(
 	struct retroScreen * screen,
 	int x,
 	int y,
@@ -91,12 +91,12 @@ void _retromode_retroStar(struct RetroModeIFace *Self,
 		g11 = g1 +g;
 		g22 = g2 +g;
 
-		_retromode_retroTriangle(Self, screen,
+		retroTriangle(Self, screen,
 				(sin(g00) * r0)+x,(cos(g00) * r0)+y,
 				(sin(g11) * r1)+x,(cos(g11) * r1)+y,
 				(sin(g22) * r0)+x,(cos(g22) * r0)+y,color);
 
-		_retromode_retroTriangle(Self, screen,
+		retroTriangle(Self, screen,
 				(sin(g00) * r0)+x,(cos(g00) * r0)+y,
 				x,y,
 				(sin(g22) * r0)+x,(cos(g22) * r0)+y,color);

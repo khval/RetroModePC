@@ -62,7 +62,7 @@
 *
 */
 
-void _retromode_retroRainbowColorRange(struct RetroModeIFace *Self,
+void retroRainbowColorRange(
        struct retroVideo * video,
        int rainbowNumber,
        int fromLine,

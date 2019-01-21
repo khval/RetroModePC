@@ -54,7 +54,7 @@
 *
 */
 
-void _retromode_retroScreenOffset(struct RetroModeIFace *Self,
+void retroScreenOffset(
        struct retroScreen * screen,
        int offsetx,
        int offsety)

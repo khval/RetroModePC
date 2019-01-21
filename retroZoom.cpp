@@ -62,7 +62,7 @@
 *
 */
 
-void _retromode_retroZoom(struct RetroModeIFace *Self,
+void retroZoom(
        struct retroScreen * fromScreen, int x0, int y0, int x1, int y1,
        struct retroScreen * toScreen, int x2, int y2, int x3, int y3)
 {

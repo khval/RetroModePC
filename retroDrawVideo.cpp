@@ -13,17 +13,13 @@
  *
  */
 
+#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
 #include <math.h>
-#include "libbase.h"
 
 /****** retromode/main/retroDrawVideo ******************************************
 *
@@ -126,7 +122,7 @@ void draw_lowred_pixeled_color(  struct retroScanline *line, int beamY, unsigned
 }
 
 
-void draw_lowred_emulate_color_changes(  struct retroScanline *line, int beamY, unsigned int *video_buffer  )
+void draw_lowred_emulate_color_changes( struct retroScanline *line, int beamY, unsigned int *video_buffer  )
 {
 	int x;
 	int display_frame = 0;
@@ -246,7 +242,7 @@ void draw_hires(  struct retroScanline *line, int beamY, unsigned int *video_buf
 	}
 }
 
-static void do_all_screen_color_effects(struct RetroLibrary *libBase, struct retroScreen *screen)
+static void do_all_screen_color_effects( struct retroScreen *screen )
 {
 	struct retroFlashTable **flash;
 	struct retroFlashTable *_flash;
@@ -360,7 +356,7 @@ void set_scanline(struct retroScanline *scanline,struct retroScreen * screen, st
 
 #define is_displayed 0
 
-void Screen_To_Scanlines( struct RetroLibrary *libBase, struct retroScreen * screen, struct retroVideo * video )
+void Screen_To_Scanlines( struct retroScreen * screen, struct retroVideo * video )
 {
 	int screen_y = 0;
 	int hw_start = 0;
@@ -404,17 +400,17 @@ void Screen_To_Scanlines( struct RetroLibrary *libBase, struct retroScreen * scr
 	}
 }
 
-void update_all_scanlines( struct RetroLibrary *libBase, struct retroVideo * video )
+void update_all_scanlines( struct retroVideo * video )
 {
 	struct retroScreen **screen_item;
 
 	for (screen_item = video -> attachedScreens; screen_item < video -> attachedScreens_end; screen_item++)
 	{
-		Screen_To_Scanlines( libBase, *screen_item, video );
+		Screen_To_Scanlines( *screen_item, video );
 	}
 }
 
-void update_some_scanlines( struct RetroLibrary *libBase, struct retroVideo * video )
+void update_some_scanlines( struct retroVideo * video )
 {
 	struct retroScreen **screen_item;
 
@@ -422,16 +418,16 @@ void update_some_scanlines( struct RetroLibrary *libBase, struct retroVideo * vi
 	{
 		if ( (*screen_item) -> refreshScanlines == TRUE)
 		{
-			Screen_To_Scanlines( libBase, *screen_item, video );
+			Screen_To_Scanlines( *screen_item, video );
 
 			(*screen_item) -> refreshScanlines = FALSE;
 		}
 	}
 }
 
-void _retromode_retroDrawVideo(struct RetroModeIFace *Self, struct retroVideo * video)
+void retroDrawVideo( struct retroVideo * video)
 {
-	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
+
 	struct retroScanline *scanline = video -> scanlines;
 	struct retroScreen **screen_item;
 	unsigned int *video_buffer = video -> Memory;
@@ -449,13 +445,13 @@ void _retromode_retroDrawVideo(struct RetroModeIFace *Self, struct retroVideo * 
 	{
 		video -> refreshAllScanlines = FALSE;
 		resetScanlines(video);
-		update_all_scanlines(libBase, video);
+		update_all_scanlines(video);
 	}
 
 	if (video -> refreshSomeScanlines == TRUE)
 	{
 		video -> refreshSomeScanlines = FALSE;
-		update_some_scanlines(libBase, video);
+		update_some_scanlines(video);
 	}
 
 
@@ -510,7 +506,7 @@ void _retromode_retroDrawVideo(struct RetroModeIFace *Self, struct retroVideo * 
 
 	for (screen_item = video -> attachedScreens; screen_item < video -> attachedScreens_end; screen_item++)
 	{
-		do_all_screen_color_effects(libBase, *screen_item);
+		do_all_screen_color_effects( *screen_item);
 	}
 }
 

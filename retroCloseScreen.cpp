@@ -13,16 +13,13 @@
  *
  */
 
+#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
-#include "libbase.h"
+#include <math.h>
 
 /****** retromode/main/retroCloseScreen ******************************************
 *
@@ -52,34 +49,33 @@
 *
 */
 
-extern void _retromode_retroScreenDetach(struct RetroModeIFace *Self, struct retroScreen * screen);
+extern void retroScreenDetach( struct retroScreen * screen);
 
-void _retromode_retroCloseScreen(struct RetroModeIFace *Self, struct retroScreen **screen)
+void retroCloseScreen( struct retroScreen **screen)
 {
-	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
 	struct retroFlashTable * flash;
 	struct retroShiftColors * shift;
 	int idx;
 
 	if (screen == NULL)
 	{
-		libBase -> IDOS -> Printf("your passing a NULL pointer, you should be passing ref to pointer &screenPointer\n");
+		printf("your passing a NULL pointer, you should be passing ref to pointer &screenPointer\n");
 		return;
 	}
 
 	if (*screen==NULL)
 	{
-		libBase -> IDOS -> Printf("you have closed this Screen before, maybe your clsong the wrong Screen?\n");
+		printf("you have closed this Screen before, maybe your clsong the wrong Screen?\n");
 		return;
 	}
 
 	if ((*screen) -> clones > 0)
 	{
-		libBase -> IDOS -> Printf("you are closeing Screen in the wrong order, close clones before original screen?\n");
+		printf("you are closeing Screen in the wrong order, close clones before original screen?\n");
 		return;
 	}
 
-	_retromode_retroScreenDetach( Self, *screen );
+	retroScreenDetach( *screen );
 
 	for (idx = 0; idx<256; idx++)
 	{
@@ -88,17 +84,17 @@ void _retromode_retroCloseScreen(struct RetroModeIFace *Self, struct retroScreen
 		{
 			if (flash -> table)
 			{
-				libBase -> IExec -> FreeVec(flash -> table);
+				sys_free(flash -> table);
 				flash -> table = NULL;
 			}
-			libBase -> IExec -> FreeVec(flash);
+			sys_free(flash);
 			(*screen)->allocatedFlashs[idx] = NULL;	
 		}
 
 		shift = (*screen)->allocatedShifts[idx];
 		if (shift)
 		{
-			libBase -> IExec -> FreeVec(shift);
+			sys_free(shift);
 			(*screen)->allocatedShifts[idx] = NULL;	
 		}
 	}
@@ -109,14 +105,14 @@ void _retromode_retroCloseScreen(struct RetroModeIFace *Self, struct retroScreen
 	}
 	else
 	{
-		if ((*screen) -> Memory[0]) libBase -> IExec -> FreeVec((*screen) -> Memory[0]);
-		if ((*screen) -> Memory[1]) libBase -> IExec -> FreeVec((*screen) -> Memory[1]);
+		if ((*screen) -> Memory[0]) sys_free((*screen) -> Memory[0]);
+		if ((*screen) -> Memory[1]) sys_free((*screen) -> Memory[1]);
 	}
 
 	(*screen) -> Memory[0] = NULL;
 	(*screen) -> Memory[1] = NULL;
 
-	libBase -> IExec -> FreeVec(*screen);
+	sys_free(*screen);
 	*screen = NULL;
 }
 

@@ -74,7 +74,7 @@ void draw_xor_hline_fast(struct retroScreen *screen, int x,int y,int w, unsigned
 	for ( ; x <= x2 ; x++) memory[x] ^= c;
 }
 
-void _retromode_retroXorTriangle(struct RetroModeIFace *Self,
+void retroXorTriangle(
        struct retroScreen * screen,
        int x1,
        int y1,

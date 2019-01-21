@@ -13,17 +13,13 @@
  *
  */
 
+#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
-
-#include "libbase.h"
+#include <math.h>
 
 /****** retromode/main/retroFlash ******************************************
 *
@@ -112,14 +108,14 @@ int hex_to_int( char *ptr, char **to_ptr)
 }
 
 
-int _retromode_retroDeleteFlash(struct RetroModeIFace *Self,  struct retroScreen *screen, unsigned char color);
+int retroDeleteFlash(  struct retroScreen *screen, unsigned char color);
 
-void _retromode_retroFlash(struct RetroModeIFace *Self,
+void retroFlash(
        struct retroScreen * screen,
        unsigned char color,
        char * data)
 {
-	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
+
 	struct retroFlashTable *new_flash = NULL;
 
 	int idx = 0;
@@ -129,7 +125,7 @@ void _retromode_retroFlash(struct RetroModeIFace *Self,
 	char *c;
 	char *sptr;
 
-	_retromode_retroDeleteFlash(Self, screen, color);
+	retroDeleteFlash( screen, color);
 
 	for (idx = 0; idx<256; idx++)
 	{
@@ -144,7 +140,7 @@ void _retromode_retroFlash(struct RetroModeIFace *Self,
 	for (c=data; *c!=0; c++) { if (*c=='(') count ++;	}	
 
 	// no table exists 
-	if (!new_flash)	new_flash = (struct retroFlashTable *) libBase -> IExec -> AllocVecTags( sizeof(struct retroFlashTable), AVT_Type, MEMF_SHARED, AVT_ClearWithValue, 0 ,TAG_END	);
+	if (!new_flash)	new_flash = (struct retroFlashTable *) sys_alloc_clear( sizeof(struct retroFlashTable));
 
 	if ((new_flash)&&(idx_free>-1))
 	{
@@ -153,7 +149,7 @@ void _retromode_retroFlash(struct RetroModeIFace *Self,
 		new_flash -> color = color;
 		new_flash -> colors = count;
 		new_flash -> index = 0;
-		new_flash -> table = (struct retroFlash *) libBase -> IExec -> AllocVecTags( sizeof(struct retroFlash) * count, AVT_Type, MEMF_SHARED, AVT_ClearWithValue, 0 ,TAG_END );
+		new_flash -> table = (struct retroFlash *) sys_alloc_clear( sizeof(struct retroFlash) * count);
 
 		sptr = data;
 		for (ptr = new_flash -> table; ptr < new_flash -> table+count; ptr++)
@@ -163,7 +159,7 @@ void _retromode_retroFlash(struct RetroModeIFace *Self,
 			ptr -> rgb.g =	hex_to_int(sptr, &sptr) ;
 			ptr -> rgb.b =	hex_to_int(sptr, &sptr) ;
 
-			libBase -> IDOS -> Printf("RGB %lx,%lx,%lx\n", 
+			printf("RGB %x,%x,%x\n", 
 					(int) ptr->rgb.r,
 					(int) ptr->rgb.g,
 					(int) ptr->rgb.b);

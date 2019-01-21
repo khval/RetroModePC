@@ -56,20 +56,20 @@
 *
 */
 
-extern void _retromode_retroPolyGonArray(struct RetroModeIFace *Self,
+extern void retroPolyGonArray(
 	struct retroScreen * screen,
 	unsigned char color, 
 	int array_size,
 	int * array);
 
 
-void _retromode_retroPolyGon(struct RetroModeIFace *Self,
+void retroPolyGon(
        struct retroScreen * screen,
        unsigned char color,
         ...)
 {
 	va_list list;
-	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
+
 	int array_size;
 	int array[100*2];
 
@@ -98,7 +98,7 @@ void _retromode_retroPolyGon(struct RetroModeIFace *Self,
 		array_size = n-1;
 	}
 
-	_retromode_retroPolyGonArray(Self, screen, color, array_size, array);
+	retroPolyGonArray(Self, screen, color, array_size, array);
 
 }
 

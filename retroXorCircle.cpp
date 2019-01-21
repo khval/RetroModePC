@@ -14,12 +14,11 @@
  */
 
 
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
+#include "stdafx.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
 #include <math.h>
 
@@ -56,14 +55,14 @@
 *
 */
 
-void _retromode_retroXorCircle(struct RetroModeIFace *Self,
+void retroXorCircle(
        struct retroScreen * screen,
        int cx,
        int cy,
        int r,
        unsigned char xor_mask)
 {
-	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
+
 	int x0,y0,x1,y1,_y;
 	int xx;
 	int r2 = r * r;

@@ -56,7 +56,7 @@
 */
 
 #define AllocVecTags libBase->IExec->AllocVecTags
-#define FreeVec libBase->IExec->FreeVec
+#define sys_free libBase->IExec->sys_free
 
 struct retroSprite *read_icon_or_sprite( 	struct RetroLibrary *libBase , BPTR fd )
 {
@@ -149,7 +149,7 @@ struct retroSprite *read_icon_or_sprite( 	struct RetroLibrary *libBase , BPTR fd
 
 				if (planar) 
 				{
-					FreeVec(planar);
+					sys_free(planar);
 					planar = NULL;
 				}
 			}
@@ -172,10 +172,10 @@ struct retroSprite *read_icon_or_sprite( 	struct RetroLibrary *libBase , BPTR fd
 	return sprite;
 }
 
-struct retroSprite * _retromode_retroLoadABKSprite(struct RetroModeIFace *Self,
+struct retroSprite * retroLoadABKSprite(
        char * filename)
 {
-	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
+
 	struct retroSprite *sprite = NULL;
 	BPTR fd;
 	char file_id[5]; // 4 bytes (0 to 3) byte 5 (4)

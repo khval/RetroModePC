@@ -59,10 +59,10 @@
 *
 */
 
-void _retromode_retroTriangle(struct RetroModeIFace *Self,
+void retroTriangle(
        struct retroScreen * screen, int x1,int y1, int x2, int y2, int x3, int y3, unsigned char color);
 
-void _retromode_retroThickLine(struct RetroModeIFace *Self,
+void retroThickLine(
        struct retroScreen * screen,
        int x0,
        int y0,
@@ -98,13 +98,13 @@ void _retromode_retroThickLine(struct RetroModeIFace *Self,
 	yb = sin(a + M_PI) * thickness;
 	xb = -cos(a + M_PI) * thickness;
 
-	_retromode_retroTriangle( Self, screen,  
+	retroTriangle( screen,  
 			x0 + xa ,y0 + ya, 
 			x0 + xb ,y0 + yb, 
 			x1 + xb ,y1 + yb , 
 			color );
 
-	_retromode_retroTriangle( Self, screen,  
+	retroTriangle( screen,  
 			x1 + xa ,y1 + ya, 
 			x1 + xb ,y1 + yb, 
 			x0 + xa ,y0 + ya , 

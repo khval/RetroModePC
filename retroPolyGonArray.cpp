@@ -147,17 +147,17 @@ int find_x_on_line( int y, struct _line_ l )
 }
 
 
-void _retromode_retroPixel(struct RetroModeIFace *Self,
+void retroPixel(
        struct retroScreen * screen,  int x, int y, unsigned char color);
 
 
-void _retromode_retroPolyGonArray(struct RetroModeIFace *Self,
+void retroPolyGonArray(
 	struct retroScreen * screen,
 	unsigned char color, 
 	int array_size,
 	int * array)
 {
-//	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
+//
 
 	int lx =0, ly = 0;
 	int s;
@@ -264,7 +264,7 @@ void _retromode_retroPolyGonArray(struct RetroModeIFace *Self,
 					{
 						for (x=x0;x<=x1;x++)
 						{
-							_retromode_retroPixel( Self, screen, x, y, color ) ;
+							retroPixel( screen, x, y, color ) ;
 						}
 					}
 					odd_even = ! odd_even;

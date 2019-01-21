@@ -13,16 +13,13 @@
  *
  */
 
+#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
-#include "libbase.h"
+#include <math.h>
 
 /****** retromode/main/retroDeleteFlash ******************************************
 *
@@ -54,11 +51,11 @@
 *
 */
 
-int _retromode_retroDeleteFlash(struct RetroModeIFace *Self,
+int retroDeleteFlash(
        struct retroScreen * screen,
        unsigned char color)
 {
-	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
+
 
 	int idx = 0;
 	struct retroFlashTable *flash = NULL;
@@ -73,11 +70,11 @@ int _retromode_retroDeleteFlash(struct RetroModeIFace *Self,
 
 				if (flash -> table)
 				{
-					libBase -> IExec -> FreeVec(flash -> table);
+					sys_free(flash -> table);
 					flash -> table = NULL;
 				}
 
-				libBase -> IExec -> FreeVec(screen->allocatedFlashs[idx]);	
+				sys_free(screen->allocatedFlashs[idx]);	
 				for ( ; idx<255;idx++)
 				{
 					screen->allocatedFlashs[idx] = screen->allocatedFlashs[idx+1];

@@ -13,16 +13,13 @@
  *
  */
 
+#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
-#include <libbase.h>
+#include <math.h>
 
 /****** retromode/main/retroCycleColorsDown ******************************************
 *
@@ -57,14 +54,13 @@
 *
 */
 
-void _retromode_retroCycleColorsDown(struct RetroModeIFace *Self,
+void retroCycleColorsDown(
 	struct retroScreen * screen,
 	unsigned int delay,
 	unsigned char from_color,
 	unsigned char to_color,
 	unsigned char flags)
 {
-	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
 	struct retroShiftColors *new_ShiftColors = NULL;
 
 	int idx = 0;
@@ -89,8 +85,7 @@ void _retromode_retroCycleColorsDown(struct RetroModeIFace *Self,
 
 	if (idx_free>-1)
 	{
-		if (!new_ShiftColors) new_ShiftColors = (struct retroShiftColors *) libBase -> IExec -> AllocVecTags( sizeof(struct retroShiftColors),  
-					AVT_Type, MEMF_SHARED, AVT_ClearWithValue, 0 ,TAG_END	);
+		if (!new_ShiftColors) new_ShiftColors = (struct retroShiftColors *) sys_alloc_clear( sizeof(struct retroShiftColors) );
 
 		if (new_ShiftColors)
 		{

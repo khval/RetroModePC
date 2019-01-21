@@ -57,7 +57,7 @@
 *
 */
 
-void _retromode_retroXorBox(struct RetroModeIFace *Self,
+void retroXorBox(
        struct retroScreen * screen,
        int x1,
        int y1,

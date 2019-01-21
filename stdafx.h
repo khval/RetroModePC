@@ -22,5 +22,8 @@
 #define sys_alloc(size) malloc(size)
 #define sys_alloc_clear(size) calloc(1,size)
 #define sys_free free
+#define FALSE false
+#define TRUE true
+typedef void * APTR;
 #endif
 // TODO: reference additional headers your program requires here

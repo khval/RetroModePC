@@ -13,16 +13,13 @@
  *
  */
 
+#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
-#include <libbase.h>
+#include <math.h>
 
 /****** retromode/main/afterEffectDrawSrpites ******************************************
 *
@@ -52,7 +49,7 @@
 *
 */
 
-void retroDrawSprite(struct RetroLibrary *libBase,
+void retroDrawSprite(
        struct retroVideo *video,
        struct retroFrameHeader *frame,
        int x,
@@ -140,10 +137,9 @@ void retroDrawSprite(struct RetroLibrary *libBase,
 }
 
 
-void _retromode_AfterEffectDrawSrpites(struct RetroModeIFace *Self,
+void AfterEffectDrawSrpites(
        struct retroVideo * video)
 {
-	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
 	struct retroSpriteObject *sprite;
 
 	for ( sprite= video -> sprites; sprite < video -> sprites_end ; sprite ++ )
@@ -154,7 +150,7 @@ void _retromode_AfterEffectDrawSrpites(struct RetroModeIFace *Self,
 //			libBase -> IDOS->Printf("sprite x %ld, y %ld\n", sprite->x, sprite->y);
 //			libBase -> IDOS->Printf("frame %lx\n", sprite -> frame);
 
-			retroDrawSprite( libBase, video, sprite -> frame, sprite->x, sprite->y);
+			retroDrawSprite( video, sprite -> frame, sprite->x, sprite->y);
 		}
 	}
 }

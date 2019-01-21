@@ -13,19 +13,13 @@
  *
  */
 
+#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <math.h>
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
 #include <math.h>
-
-#include "libbase.h"
 
 /****** retromode/main/retroCircle ******************************************
 *
@@ -60,11 +54,11 @@
 *
 */
 
-void _retromode_retroPixel(struct RetroModeIFace *Self, struct retroScreen * screen, int x, int y, unsigned char color);
+void retroPixel( struct retroScreen * screen, int x, int y, unsigned char color);
 
-#define putpixel(x,y) _retromode_retroPixel(Self, screen, x,y, color)
+#define putpixel(x,y) retroPixel( screen, x,y, color)
 
-void _retromode_retroCircle(struct RetroModeIFace *Self,
+void retroCircle(
        struct retroScreen * screen,
        int x0,
        int y0,

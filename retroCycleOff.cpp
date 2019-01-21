@@ -13,16 +13,13 @@
  *
  */
 
+#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
-#include "libbase.h"
+#include <math.h>
 
 /****** retromode/main/retroCycleOff ******************************************
 *
@@ -52,14 +49,13 @@
 *
 */
 
-void _retromode_retroCycleOff(struct RetroModeIFace *Self, struct retroScreen * screen)
+void retroCycleOff( struct retroScreen * screen)
 {
-	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
 	struct retroShiftColors **shift;
 
 	for (shift = screen -> allocatedShifts ; shift < screen -> allocatedShifts_end; shift ++)
 	{
-		if (*shift) libBase -> IExec -> FreeVec(*shift);
+		if (*shift) sys_free(*shift);
 		*shift = NULL;
 	}
 

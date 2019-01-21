@@ -51,7 +51,7 @@
 *
 */
 
-void _retromode_retroScreenDetach(struct RetroModeIFace *Self, struct retroScreen * screen)
+void retroScreenDetach( struct retroScreen * screen)
 {
 	struct retroVideo * video = screen -> attachedToVideo;
 	int found = -1;

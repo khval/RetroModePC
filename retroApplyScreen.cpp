@@ -13,18 +13,14 @@
  *
  */
 
+
+#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
-
-#include "libbase.h"
-
+#include <math.h>
 
 /****** retromode/main/retroApplyScreen ******************************************
 *
@@ -60,7 +56,7 @@
 *
 */
 
-extern void _retromode_retroSetVideoColor(struct RetroModeIFace *Self,
+extern void retroSetVideoColor(
        struct retroVideo * video,
        struct retroRGB * RGB,
        int color,
@@ -69,7 +65,7 @@ extern void _retromode_retroSetVideoColor(struct RetroModeIFace *Self,
 
 
 
-void _retromode_retroApplyScreen(struct RetroModeIFace *Self,
+void retroApplyScreen(
 	struct retroScreen * screen,
 	struct retroVideo * video,
 	int scanline_x,

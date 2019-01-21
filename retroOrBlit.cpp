@@ -62,9 +62,9 @@
 *
 */
 
-void _retromode_retroOrBlit(struct RetroModeIFace *Self,struct BitMap *bitmap,int fromX,int fromY,int width,int height,struct retroScreen * screen,int toX,int toY)
+void retroOrBlit(struct BitMap *bitmap,int fromX,int fromY,int width,int height,struct retroScreen * screen,int toX,int toY)
 {
-	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
+
 	int x,y;
 	APTR lock;
 	unsigned char *BitMapMemory;

@@ -67,16 +67,16 @@ struct FillNode
 };
 
 extern BOOL insideScreenAndReplaceColor(struct retroScreen *screen,unsigned char *sc_mem, int x,int y, unsigned char replace_color);
-extern void AddXY( struct RetroLibrary *libBase, struct List *list, int x, int y );
+extern void AddXY( struct List *list, int x, int y );
 
-void _retromode_retroOrFill(struct RetroModeIFace *Self,
+void retroOrFill(
        struct retroScreen * screen,
        int x,
        int y,
        int and_mask,
        unsigned char or_color)
 {
-	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
+
 	char replace_color;
 	struct List list;
 	struct FillNode *node = NULL;

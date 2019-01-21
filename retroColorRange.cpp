@@ -13,16 +13,13 @@
  *
  */
 
+#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
-#include <libbase.h>
+#include <math.h>
 
 /****** retromode/main/retroColorRange ******************************************
 *
@@ -62,12 +59,11 @@
 *
 */
 
-void _retromode_retroColorRange(struct RetroModeIFace *Self,
+void retroColorRange(
        struct retroScreen * screen,
        int fromColor, int fromR, int fromG, int fromB,
        int toColor, int toR, int toG, int toB)
 {
-	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
 	int dr,dg,db;
 	int offset;
 	int deltaColor;
@@ -85,8 +81,7 @@ void _retromode_retroColorRange(struct RetroModeIFace *Self,
 
 	for ( color = fromColor; color <= toColor ; color ++ )
 	{
-		offset = color - fromColor;
-		libBase -> IDOS -> Printf("color %ld, offset %ld\n", color, offset);
+		offset = color - fromColor;	
 
 		r = (dr * offset / deltaColor) + fromR;
 		g = (dg * offset / deltaColor) + fromG;

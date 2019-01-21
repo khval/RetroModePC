@@ -13,17 +13,13 @@
  *
  */
 
+#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
-
-#include "libbase.h"
+#include <math.h>
 
 /****** retromode/main/retroAllocDoubleBuffer ******************************************
 *
@@ -53,9 +49,8 @@
 *
 */
 
-void _retromode_retroAllocDoubleBuffer(struct RetroModeIFace *Self,  struct retroScreen * screen)
+void retroAllocDoubleBuffer(  struct retroScreen * screen)
 {
-	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
 
 	if (screen -> Memory[1] == NULL )
 	{ 
@@ -63,7 +58,7 @@ void _retromode_retroAllocDoubleBuffer(struct RetroModeIFace *Self,  struct retr
 		unsigned char *src_ptr,*dest_ptr;
 		unsigned char *mem_end;
 
-		screen -> Memory[1] = (unsigned char *) libBase -> IExec -> AllocVecTags(  _size_ , AVT_Type, MEMF_SHARED, AVT_ClearWithValue, 0, TAG_END );
+		screen -> Memory[1] = (unsigned char *) sys_alloc_clear(  _size_ );
 
 		src_ptr = screen -> Memory[0];
 		dest_ptr=screen -> Memory[1];

@@ -60,10 +60,10 @@
 *
 */
 
-void _retromode_retroOrTriangle(struct RetroModeIFace *Self,
+void retroOrTriangle(
        struct retroScreen * screen, int x1,int y1, int x2, int y2, int x3,int y3, unsigned char color);
 
-void _retromode_retroOrStar(struct RetroModeIFace *Self,
+void retroOrStar(
        struct retroScreen * screen,
        int x,
        int y,
@@ -87,12 +87,12 @@ void _retromode_retroOrStar(struct RetroModeIFace *Self,
 		g11 = g1 +g;
 		g22 = g2 +g;
 
-		_retromode_retroOrTriangle(Self, screen,
+		retroOrTriangle(Self, screen,
 				(sin(g00) * r0)+x,(cos(g00) * r0)+y,
 				(sin(g11) * r1)+x,(cos(g11) * r1)+y,
 				(sin(g22) * r0)+x,(cos(g22) * r0)+y,color);
 
-		_retromode_retroOrTriangle(Self, screen,
+		retroOrTriangle(Self, screen,
 				(sin(g00) * r0)+x,(cos(g00) * r0)+y,
 				x,y,
 				(sin(g22) * r0)+x,(cos(g22) * r0)+y,color);

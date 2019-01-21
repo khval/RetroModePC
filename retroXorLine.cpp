@@ -57,7 +57,7 @@
 *
 */
 
-void _retromode_retroXorLine(struct RetroModeIFace *Self,
+void retroXorLine(
        struct retroScreen * screen,
        int x1,
        int y1,
@@ -76,7 +76,7 @@ void _retromode_retroXorLine(struct RetroModeIFace *Self,
 	int dirx;
 	int sdx;	// signed delta x
 
-//	libBase -> IDOS -> Printf("line %ld,%ld to %ld,%ld\n", (int) x1, (int) y1, (int) x2, (int) y2 );
+//	printf("line %ld,%ld to %ld,%ld\n", (int) x1, (int) y1, (int) x2, (int) y2 );
 
 	if (x2>x1)
 	{

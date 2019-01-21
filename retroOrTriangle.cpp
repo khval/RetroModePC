@@ -75,7 +75,7 @@ void draw_or_hline_fast(struct retroScreen *screen, unsigned char *scr_mem, int 
 }
 
 
-void _retromode_retroOrTriangle(struct RetroModeIFace *Self,
+void retroOrTriangle(
        struct retroScreen * screen,
        int x1,
        int y1,

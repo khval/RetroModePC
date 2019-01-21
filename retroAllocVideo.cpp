@@ -13,16 +13,13 @@
  *
  */
 
+#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
-#include "libbase.h"
+#include <math.h>
 
 /****** retromode/main/retroAllocVideo ******************************************
 *
@@ -66,20 +63,19 @@ void config_scanline(
 	scanline->data[1] = data1;
 }
 
-struct retroVideo * _retromode_retroAllocVideo(struct RetroModeIFace *Self,
+struct retroVideo * retroAllocVideo(
        struct Window * window)
 {
-	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
-	struct retroVideo *new_video ;
+	struct retroVideo *new_video = NULL;
 	struct retroRGB RGB000;
+#if 0
 
 	RGB000.r = 0;
 	RGB000.g = 0;
 	RGB000.b = 0;
 
-	if (libBase -> IGraphics == NULL) return NULL;
 
-	new_video = (struct retroVideo *) libBase -> IExec -> AllocVecTags( sizeof(struct retroVideo),  
+	new_video = (struct retroVideo *) sys_alloc_clear( sizeof(struct retroVideo),  
 					AVT_Type, MEMF_SHARED, 
 					AVT_ClearWithValue, 0 ,
 					TAG_END	);
@@ -109,7 +105,7 @@ struct retroVideo * _retromode_retroAllocVideo(struct RetroModeIFace *Self,
 		{
 			// We create a mirror copy in system ram.
 			new_video -> BytesPerRow = libBase -> IGraphics -> GetBitMapAttr( new_video -> rp.BitMap, BMA_WIDTH)  * 4;
-			new_video -> Memory = (unsigned int *)  libBase -> IExec -> AllocVecTags( new_video -> BytesPerRow * (new_video -> height  + 1), 
+			new_video -> Memory = (unsigned int *)  sys_alloc_clear( new_video -> BytesPerRow * (new_video -> height  + 1), 
 						AVT_Type, MEMF_SHARED, 
 						AVT_ClearWithValue, 0 ,
 						TAG_END	);
@@ -121,7 +117,7 @@ struct retroVideo * _retromode_retroAllocVideo(struct RetroModeIFace *Self,
 			return NULL;
 		}
 	}
-
+#endif
 	return  new_video;
 }
 

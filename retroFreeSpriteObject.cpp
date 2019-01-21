@@ -13,16 +13,13 @@
  *
  */
 
+#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
-#include "libbase.h"
+#include <math.h>
 
 /****** retromode/main/retroFreeSpriteObject ******************************************
 *
@@ -54,11 +51,11 @@
 *
 */
 
-void _retromode_retroFreeSpriteObject(struct RetroModeIFace *Self,
+void retroFreeSpriteObject(
        struct retroSpriteObject * spriteObject,
        BOOL onlyData)
 {
-	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
+
 	int n;
 
 	if (spriteObject)
@@ -67,14 +64,14 @@ void _retromode_retroFreeSpriteObject(struct RetroModeIFace *Self,
 		{
 			if (spriteObject -> clear[n].mem)
 			{
-				libBase -> IExec -> FreeVec(spriteObject -> clear[n].mem);
+				sys_free(spriteObject -> clear[n].mem);
 				spriteObject -> clear[n].mem = NULL;
 			}
 		}
 
 		if (onlyData==FALSE)
 		{
-			libBase -> IExec -> FreeVec(spriteObject);
+			sys_free(spriteObject);
 		}
 	}
 }

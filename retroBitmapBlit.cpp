@@ -13,16 +13,15 @@
  *
  */
 
+#include <stdint.h>
+#include <unistd.h>
+#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
-#include <libbase.h>
+#include <math.h>
 
 /****** retromode/main/retroBitmapBlit ******************************************
 *
@@ -61,7 +60,7 @@
 *
 */
 
-void _retromode_retroBitmapBlit(struct RetroModeIFace *Self,
+void retroBitmapBlit(
        struct BitMap * bitmap,
        int fromX,
        int fromY,
@@ -71,18 +70,20 @@ void _retromode_retroBitmapBlit(struct RetroModeIFace *Self,
        int toX,
        int toY)
 {
-	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
 	int x,y;
 	APTR lock;
 	unsigned char *BitMapMemory;
-	uint32	BitMapBytesPerRow;
-	uint32	BitMapWidth;
-	uint32	BitMapHeight;
+	uint32_t	BitMapBytesPerRow;
+	uint32_t	BitMapWidth;
+	uint32_t	BitMapHeight;
 	unsigned char	*src_memory;
 	unsigned char	*des_memory;
 
 	unsigned char	*inner_src_memory;
 	unsigned char	*inner_des_memory;
+
+
+#if 0
 
 	BitMapWidth = libBase -> IGraphics ->GetBitMapAttr( bitmap, BMA_ACTUALWIDTH );
 	BitMapHeight = libBase -> IGraphics ->GetBitMapAttr( bitmap, BMA_HEIGHT );
@@ -132,5 +133,6 @@ void _retromode_retroBitmapBlit(struct RetroModeIFace *Self,
 		}
 		libBase -> IGraphics -> UnlockBitMap( lock );
 	}
+#endif
 }
 

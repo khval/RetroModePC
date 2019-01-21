@@ -54,7 +54,7 @@
 *
 */
 
-void _retromode_retroScreenToBack(struct RetroModeIFace *Self, struct retroScreen * screen)
+void retroScreenToBack( struct retroScreen * screen)
 {
 	struct retroVideo *video; 
 	struct retroScreen **ptr;

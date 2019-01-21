@@ -13,18 +13,13 @@
  *
  */
 
+#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <math.h>
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
 #include <math.h>
-#include <libbase.h>
 
 /****** retromode/main/retroBarRounded ******************************************
 *
@@ -61,7 +56,6 @@
 *
 */
 
-extern void _retromode_retroBAR(struct RetroModeIFace *Self, struct retroScreen * screen, int x0, int y0, int x1,int y1,unsigned char color);
 
 void hline( struct retroScreen * screen, unsigned char *scr_mem, int x0, int x1, int y, char color )
 {
@@ -89,7 +83,7 @@ void hline( struct retroScreen * screen, unsigned char *scr_mem, int x0, int x1,
 }
 
 
-void _retromode_retroBarRounded(struct RetroModeIFace *Self,
+void retroBarRounded(
        struct retroScreen * screen,
        int x0,
        int y0,
@@ -103,9 +97,9 @@ void _retromode_retroBarRounded(struct RetroModeIFace *Self,
 	if (x1-x0<r*2) return;
 	if (y1-y0<r*2) return;
 
-	_retromode_retroBAR(Self, screen,  x0+r,  y0,  x1-r,  y0+r, color);
-	_retromode_retroBAR(Self, screen,  x0,  y0 + r, x1, y1 - r, color);
-	_retromode_retroBAR(Self, screen,  x0 + r,  y1-r , x1-r, y1 , color);
+	retroBAR( screen,  x0+r,  y0,  x1-r,  y0+r, color);
+	retroBAR( screen,  x0,  y0 + r, x1, y1 - r, color);
+	retroBAR( screen,  x0 + r,  y1-r , x1-r, y1 , color);
 
 	r2 = r * r;
 

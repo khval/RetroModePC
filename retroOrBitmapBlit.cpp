@@ -62,7 +62,7 @@
 *
 */
 
-void _retromode_retroOrBitmapBlit(struct RetroModeIFace *Self,
+void retroOrBitmapBlit(
        struct BitMap * bitmap,
        int fromX,
        int fromY,
@@ -72,7 +72,7 @@ void _retromode_retroOrBitmapBlit(struct RetroModeIFace *Self,
        int toX,
        int toY)
 {
-	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
+
 	int x,y;
 	APTR lock;
 	unsigned char *BitMapMemory;

@@ -63,7 +63,7 @@
 *
 */
 
-void _retromode_retroScreenBlit(struct RetroModeIFace *Self,
+void retroScreenBlit(
 	struct retroScreen *source,
 	int formMode,
 	int fromX,
@@ -75,7 +75,7 @@ void _retromode_retroScreenBlit(struct RetroModeIFace *Self,
 	int toX,
 	int toY)
 {
-//	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
+//
 	// pointers
 	unsigned char *destination_horizontal_ptr;
 

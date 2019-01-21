@@ -13,16 +13,13 @@
  *
  */
 
+#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
-#include "libbase.h"
+#include <math.h>
 
 /****** retromode/main/retroAllocFrame ******************************************
 *
@@ -59,7 +56,7 @@
 *
 */
 
-struct retroFrame * _retromode_retroAllocFrame(struct RetroModeIFace *Self,
+struct retroFrame * retroAllocFrame(
        struct retroScreen * screen,
        int x1,
        int y1,
@@ -67,12 +64,10 @@ struct retroFrame * _retromode_retroAllocFrame(struct RetroModeIFace *Self,
        int y2,
        int hotspotX,
        int hotspotY)
-{
-	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
+{	
 	struct retroFrame	*ret = NULL;
 
-	ret = (struct retroFrame *)  libBase -> IExec -> AllocVecTags( sizeof(struct retroFrame), 
-						AVT_Type, MEMF_SHARED, AVT_ClearWithValue, 0, TAG_END );
+	ret = (struct retroFrame *)  sys_alloc_clear( sizeof(struct retroFrame));
 
 	if (ret)
 	{

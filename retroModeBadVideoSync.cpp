@@ -56,7 +56,7 @@
 *
 */
 
-void _retromode_retroModeBadVideoSync(struct RetroModeIFace *Self,
+void retroModeBadVideoSync(
 	struct retroVideo * video,
 	double sync_offset,
 	double incRad,

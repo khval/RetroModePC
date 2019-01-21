@@ -57,7 +57,7 @@
 *
 */
 
-void _retromode_retroPasteSprite(struct RetroModeIFace *Self,
+void retroPasteSprite(
 	struct retroScreen * screen,
 	struct retroSprite * sprite,
 	int x,
@@ -65,7 +65,7 @@ void _retromode_retroPasteSprite(struct RetroModeIFace *Self,
 	int image,
 	int flags)
 {
-	struct RetroLibrary *libBase = (struct RetroLibrary *) Self -> Data.LibBase;
+
 	int width;
 	int height;
 	int ypos;
