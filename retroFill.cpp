@@ -56,12 +56,14 @@
 
 // nice on the stack on recursive call back
 
+
 class FillNode
 {
 public:
 	int x;
 	int y;
 };
+
 
 BOOL insideScreenAndReplaceColor(struct retroScreen *screen,unsigned char *sc_mem, int x,int y, unsigned char replace_color)
 {
@@ -91,10 +93,8 @@ void retroFill(
 
 	char replace_color;
 	std::vector<FillNode> list;
-	struct FillNode *node = NULL;
+	FillNode *node = NULL;
 	unsigned char *sc_mem = screen -> Memory[screen -> double_buffer_draw_frame];
-
-	
 
 	if ((x>-1)&&(x<screen->realWidth)&&(y>-1)&&(y<screen->realHeight))
 	{

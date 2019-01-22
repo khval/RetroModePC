@@ -247,6 +247,13 @@ struct retroSpriteObject
 	struct retroFrameHeader *frame;		// optional
 };
 
+class FillNode
+{
+public:
+	int x;
+	int y;
+};
+
 #define retroLowres 1
 #define retroLowres_pixeld 2
 #define retroHires 4

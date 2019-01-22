@@ -13,16 +13,14 @@
  *
  */
 
+#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
-#include <libbase.h>
+#include <math.h>
+#include <vector>
 
 /****** retromode/main/retroOrFill ******************************************
 *
@@ -59,15 +57,17 @@
 
 // nice on the stack on recursive call back
 
-struct FillNode
+
+class FillNode
 {
-	struct Node node;
+public:
 	int x;
 	int y;
 };
 
+
 extern BOOL insideScreenAndReplaceColor(struct retroScreen *screen,unsigned char *sc_mem, int x,int y, unsigned char replace_color);
-extern void AddXY( struct List *list, int x, int y );
+extern void AddXY( std::vector<FillNode> &list, int x, int y );
 
 void retroOrFill(
        struct retroScreen * screen,
@@ -78,11 +78,9 @@ void retroOrFill(
 {
 
 	char replace_color;
-	struct List list;
-	struct FillNode *node = NULL;
+	std::vector<FillNode> list;
+	FillNode *node = NULL;
 	unsigned char *sc_mem = screen -> Memory[screen -> double_buffer_draw_frame];
-
-	libBase -> IExec-> NewList(&list);
 
 	and_mask |= or_color;	// prevents it from go in loop forever.
 
@@ -95,24 +93,22 @@ void retroOrFill(
 	
 	do
 	{
-		if ( (void *) node == (void *) &list) break;
+		if ( list.size()==0 ) break;
 
-		if (node)
+		if (node = &list[0])
 		{
 			x = node -> x;
 			y = node -> y;
-			libBase -> IExec-> Remove( (struct Node *) node);
-			libBase -> IExec-> FreeSysObject( ASOT_NODE, node );
-			node = NULL;
+			list.erase(list.begin());
 		}
 
 		sc_mem[ (screen -> realWidth * y) + x ] |= or_color;
 
-		if (insideScreenAndReplaceColor(screen,sc_mem,x,y-1,replace_color)) AddXY( libBase, &list, x, y-1 );
-		if (insideScreenAndReplaceColor(screen,sc_mem,x,y+1,replace_color)) AddXY( libBase, &list, x, y+1 );
-		if (insideScreenAndReplaceColor(screen,sc_mem,x-1,y,replace_color)) AddXY( libBase, &list, x-1, y );
-		if (insideScreenAndReplaceColor(screen,sc_mem,x+1,y,replace_color)) AddXY( libBase, &list, x+1, y );
+		if (insideScreenAndReplaceColor(screen,sc_mem,x,y-1,replace_color)) AddXY( list, x, y-1 );
+		if (insideScreenAndReplaceColor(screen,sc_mem,x,y+1,replace_color)) AddXY( list, x, y+1 );
+		if (insideScreenAndReplaceColor(screen,sc_mem,x-1,y,replace_color)) AddXY( list, x-1, y );
+		if (insideScreenAndReplaceColor(screen,sc_mem,x+1,y,replace_color)) AddXY( list, x+1, y );
 
-	} while (node = (struct FillNode *) libBase -> IExec-> GetHead( &list));
+	} while (list.size()>0);
 }
 
