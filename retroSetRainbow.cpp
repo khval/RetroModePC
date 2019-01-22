@@ -60,10 +60,10 @@ void retroSetRainbow(
        int tableSize)
 {
 
-	if (video -> rainbow[rainbowNumber].table) libBase->IExec->sys_free(video -> rainbow[0].table);
+	if (video -> rainbow[rainbowNumber].table) sys_free(video -> rainbow[rainbowNumber].table);
 
 	video -> rainbow[rainbowNumber].color = color;
 	video -> rainbow[rainbowNumber].tableSize = tableSize;
-	video -> rainbow[rainbowNumber].table = (struct retroRGB *) libBase->IExec->AllocVecTags(sizeof(struct retroRGB)  * video -> rainbow[0].tableSize,  AVT_Type, MEMF_SHARED, TAG_END );
+	video -> rainbow[rainbowNumber].table = (struct retroRGB *) sys_alloc_clear(sizeof(struct retroRGB)  * video -> rainbow[0].tableSize );
 }
 
