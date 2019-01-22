@@ -91,7 +91,7 @@ modules = AfterEffectAdjustRGB.cpp \
 		retroZoom.cpp 
 
 all: $(modules:.cpp=.o)
-	ar -rsc retromodelib.a $(modules:.cpp=.o) 
+	ar -rsc libretromode.a $(modules:.cpp=.o) 
 
 
 %.o: %.cpp
@@ -99,4 +99,4 @@ all: $(modules:.cpp=.o)
 
 
 clean:
-		rm *.o
+		rm *.o *.a

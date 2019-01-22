@@ -57,14 +57,6 @@
 // nice on the stack on recursive call back
 
 
-class FillNode
-{
-public:
-	int x;
-	int y;
-};
-
-
 BOOL insideScreenAndReplaceColor(struct retroScreen *screen,unsigned char *sc_mem, int x,int y, unsigned char replace_color)
 {
 	if ((x>-1)&&(x<screen->realWidth)&&(y>-1)&&(y<screen->realHeight))

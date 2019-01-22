@@ -57,15 +57,6 @@
 
 // nice on the stack on recursive call back
 
-
-class FillNode
-{
-public:
-	int x;
-	int y;
-};
-
-
 extern BOOL insideScreenAndReplaceColor(struct retroScreen *screen,unsigned char *sc_mem, int x,int y, unsigned char replace_color);
 extern void AddXY( std::vector<FillNode> &list, int x, int y );
 
