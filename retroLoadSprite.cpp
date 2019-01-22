@@ -16,7 +16,7 @@
 *      retroLoadSprite -- Description
 *
 *   SYNOPSIS
-*      struct retroSprite * retroLoadSprite(struct retrofd * fd);
+*      struct retroSprite * retroLoadSprite(void * fd);
 *
 *   FUNCTION
 *
@@ -39,7 +39,7 @@
 */
 
 
-struct retroSprite * retroLoadSprite( FILE *fd, cust_fread_t cust_fread)
+struct retroSprite * retroLoadSprite( void *fd, cust_fread_t cust_fread)
 {
 #ifdef __amigaos4__
 
