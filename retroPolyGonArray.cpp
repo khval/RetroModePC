@@ -20,6 +20,7 @@
 #include <retromode_lib.h>
 #include <stdarg.h>
 #include <math.h>
+#include <limits.h>
 
 /****** retromode/main/retroPolyGonArray ******************************************
 *

@@ -60,7 +60,7 @@ struct retroScreen * retroScreenClone(
 
 	if (sourceScreen == NULL) return NULL;
 
-	screen = (struct retroScreen *) sys_alloc_clear( sizeof(struct retroScreen),  AVT_Type, MEMF_SHARED, AVT_ClearWithValue, 0, TAG_END	);
+	screen = (struct retroScreen *) sys_alloc_clear( sizeof(struct retroScreen) );
 	if (screen)
 	{
 		sourceScreen -> clones ++;
@@ -77,7 +77,7 @@ struct retroScreen * retroScreenClone(
 		// if fail
 		if (screen -> Memory == NULL)
 		{
-			Self -> retroCloseScreen( &screen );
+			retroCloseScreen( &screen );
 			return NULL;
 		}
 	}
