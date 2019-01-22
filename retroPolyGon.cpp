@@ -96,7 +96,7 @@ void retroPolyGon(
 		array_size = n-1;
 	}
 
-	retroPolyGonArray(Self, screen, color, array_size, array);
+	retroPolyGonArray( screen, color, array_size, array);
 
 }
 

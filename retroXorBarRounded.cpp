@@ -97,9 +97,9 @@ void retroXorBarRounded(
 	if (x1-x0<r*2) return;
 	if (y1-y0<r*2) return;
 
-	retroXorBAR(Self, screen,  x0+r,  y0,  x1-r,  y0+r, color);
-	retroXorBAR(Self, screen,  x0,  y0 + r +1, x1, y1 - r -1, color);
-	retroXorBAR(Self, screen,  x0 + r,  y1-r , x1-r, y1 , color);
+	retroXorBAR( screen,  x0+r,  y0,  x1-r,  y0+r, color);
+	retroXorBAR( screen,  x0,  y0 + r +1, x1, y1 - r -1, color);
+	retroXorBAR( screen,  x0 + r,  y1-r , x1-r, y1 , color);
 
 	r2 = r * r;
 

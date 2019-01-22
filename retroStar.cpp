@@ -88,12 +88,12 @@ void retroStar(
 		g11 = g1 +g;
 		g22 = g2 +g;
 
-		retroTriangle(Self, screen,
+		retroTriangle( screen,
 				(sin(g00) * r0)+x,(cos(g00) * r0)+y,
 				(sin(g11) * r1)+x,(cos(g11) * r1)+y,
 				(sin(g22) * r0)+x,(cos(g22) * r0)+y,color);
 
-		retroTriangle(Self, screen,
+		retroTriangle( screen,
 				(sin(g00) * r0)+x,(cos(g00) * r0)+y,
 				x,y,
 				(sin(g22) * r0)+x,(cos(g22) * r0)+y,color);

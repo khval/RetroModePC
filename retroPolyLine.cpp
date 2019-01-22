@@ -97,7 +97,7 @@ void retroPolyLine(
 
 			if (count > 1 )
 			{
-				retroLine(Self,  screen, lx, ly, x, y, color);
+				retroLine( screen, lx, ly, x, y, color);
 			}
 		}
 		i++;
