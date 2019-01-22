@@ -87,7 +87,6 @@ modules = AfterEffectAdjustRGB.cpp \
 		retroXorLine.cpp \
 		retroXorScreenBlit.cpp \
 		retroXorTriangle.cpp \
-		retroAllocSprite.cpp \
 		retroAllocSpriteObjects.cpp \
 		retroZoom.cpp 
 
