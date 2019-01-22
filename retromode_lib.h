@@ -14,8 +14,8 @@
 	void retroPixel( struct retroScreen * screen, int x, int y, unsigned char color);
 	unsigned char retroPoint( struct retroScreen * screen, int x, int y);
 	void retroFlash( struct retroScreen * screen, unsigned char color, char * data);
-	void retroCycleColorsUp( struct retroScreen * screen, int delay, unsigned char from_color, unsigned char to_color, unsigned char flags);
-	void retroCycleColorsDown( struct retroScreen * screen, int delay, unsigned char from_color, unsigned char to_color, unsigned char flags);
+	void retroCycleColorsUp( struct retroScreen * screen, unsigned int delay, unsigned char from_color, unsigned char to_color, unsigned char flags);
+	void retroCycleColorsDown( struct retroScreen * screen, unsigned int delay, unsigned char from_color, unsigned char to_color, unsigned char flags);
 	void retroBAR( struct retroScreen * screen, int x0, int y0, int x1, int y1, unsigned char color);
 	void retroOrBAR( struct retroScreen * screen, int x0, int y0, int x1, int y1, unsigned char or_mask);
 	void retroXorBAR( struct retroScreen * screen, int x0, int y0, int x1, int y1, unsigned char xor_mask);
