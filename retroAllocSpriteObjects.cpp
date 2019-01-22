@@ -57,10 +57,9 @@ void retroAllocSpriteObjects(
 {
 
 
-	Self -> retroFreeSpriteObjects( video );
+	retroFreeSpriteObjects( video );
 
-	video -> sprites = (struct retroSpriteObject *) libBase -> IExec-> AllocVecTags( sizeof(struct retroSpriteObject) * numberOfSprites, 
-						AVT_Type, MEMF_SHARED, AVT_ClearWithValue, 0 , TAG_END );
+	video -> sprites = (struct retroSpriteObject *) sys_alloc_clear( sizeof(struct retroSpriteObject) * numberOfSprites );
 
 	if (video -> sprites)
 	{
