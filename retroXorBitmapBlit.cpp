@@ -68,7 +68,7 @@ void retroXorBitmapBlit(
        int toX,
        int toY)
 {
-
+#if 0
 	int x,y;
 	APTR lock;
 	unsigned char *BitMapMemory;
@@ -129,5 +129,8 @@ void retroXorBitmapBlit(
 		}
 		libBase -> IGraphics -> UnlockBitMap( lock );
 	}
+#else
+#warning this command is not working
+#endif
 }
 
