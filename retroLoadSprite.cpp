@@ -39,7 +39,7 @@
 */
 
 
-struct retroSprite * retroLoadSprite( AMIGALIBSELF FILE *fd, cust_fread_t cust_fread)
+struct retroSprite * retroLoadSprite( FILE *fd, cust_fread_t cust_fread)
 {
 #ifdef __amigaos4__
 

@@ -14,16 +14,13 @@
  */
 
 
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
-#include <proto/graphics.h>
+#include "stdafx.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
-
-#include "libbase.h"
+#include <math.h>
 
 
 /****** retromode/main/retroBAR ******************************************
@@ -65,6 +62,7 @@
 void retroOrBlit(struct BitMap *bitmap,int fromX,int fromY,int width,int height,struct retroScreen * screen,int toX,int toY)
 {
 
+#if 0
 	int x,y;
 	APTR lock;
 	unsigned char *BitMapMemory;
@@ -125,5 +123,8 @@ void retroOrBlit(struct BitMap *bitmap,int fromX,int fromY,int width,int height,
 		}
 		libBase -> IGraphics -> UnlockBitMap( lock );
 	}
+#else
+#warning this command is not working
+#endif
 }
 

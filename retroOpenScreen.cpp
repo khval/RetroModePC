@@ -13,17 +13,13 @@
  *
  */
 
+#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
-
-#include "libbase.h"
+#include <math.h>
 
 /****** retromode/main/retroOpenScreen ******************************************
 *
@@ -65,11 +61,7 @@ struct retroScreen * retroOpenScreen(
 
 	struct retroScreen *screen;
 
-	screen = (struct retroScreen *) sys_alloc_clear( 
-						sizeof(struct retroScreen),  
-						AVT_Type, MEMF_SHARED,
-						AVT_ClearWithValue, 0 ,
-						TAG_END	);
+	screen = (struct retroScreen *) sys_alloc_clear( sizeof(struct retroScreen) );
 
 	if (screen)
 	{
@@ -85,11 +77,7 @@ struct retroScreen * retroOpenScreen(
 		screen -> textWindows = NULL;
 		screen -> allocatedTextWindows = 0;
 
-		screen -> Memory[0] = (unsigned char *) sys_alloc_clear(  
-								screen -> bytesPerRow * (screen -> realHeight+1) ,
-								AVT_Type, MEMF_SHARED,
-								AVT_ClearWithValue, 0 ,
-								TAG_END	);
+		screen -> Memory[0] = (unsigned char *) sys_alloc_clear( screen -> bytesPerRow * (screen -> realHeight+1) );
 
 		screen -> Memory[1] = NULL;
 

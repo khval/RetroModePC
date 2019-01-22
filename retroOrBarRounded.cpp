@@ -13,15 +13,13 @@
  *
  */
 
+#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
+#include <math.h>
 
 /****** retromode/main/retroOrBarRounded ******************************************
 *
@@ -105,9 +103,9 @@ void retroOrBarRounded(
 	if (x1-x0<r*2) return;
 	if (y1-y0<r*2) return;
 
-	retroOrBAR(Self, screen,  x0+r,  y0,  x1-r,  y0+r, color);
-	retroOrBAR(Self, screen,  x0,  y0 + r +1, x1, y1 - r -1, color);
-	retroOrBAR(Self, screen,  x0 + r,  y1-r , x1-r, y1 , color);
+	retroOrBAR( screen,  x0+r,  y0,  x1-r,  y0+r, color);
+	retroOrBAR( screen,  x0,  y0 + r +1, x1, y1 - r -1, color);
+	retroOrBAR( screen,  x0 + r,  y1-r , x1-r, y1 , color);
 
 	r2 = r * r;
 

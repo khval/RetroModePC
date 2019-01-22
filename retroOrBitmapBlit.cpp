@@ -13,17 +13,13 @@
  *
  */
 
+#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
-#include <libbase.h>
-
+#include <math.h>
 
 /****** retromode/main/retroOrBitmapBlit ******************************************
 *
@@ -73,6 +69,7 @@ void retroOrBitmapBlit(
        int toY)
 {
 
+#if 0
 	int x,y;
 	APTR lock;
 	unsigned char *BitMapMemory;
@@ -85,10 +82,10 @@ void retroOrBitmapBlit(
 	unsigned char	*inner_src_memory;
 	unsigned char	*inner_des_memory;
 
-	BitMapWidth = libBase -> IGraphics ->GetBitMapAttr( bitmap, BMA_ACTUALWIDTH );
-	BitMapHeight = libBase -> IGraphics ->GetBitMapAttr( bitmap, BMA_HEIGHT );
+	BitMapWidth = GetBitMapAttr( bitmap, BMA_ACTUALWIDTH );
+	BitMapHeight = GetBitMapAttr( bitmap, BMA_HEIGHT );
 
-	lock = libBase -> IGraphics -> LockBitMapTags( bitmap, 
+	lock = LockBitMapTags( bitmap, 
 			LBM_BytesPerRow, &BitMapBytesPerRow,
 			LBM_BaseAddress, &BitMapMemory,
 			TAG_END);
@@ -133,5 +130,9 @@ void retroOrBitmapBlit(
 		}
 		libBase -> IGraphics -> UnlockBitMap( lock );
 	}
+#else
+#warning this command is not working
+#endif
+
 }
 
