@@ -55,30 +55,35 @@ void retroFreeVideo(
 {
 
 	int c;
+#if 0
 
 	Self -> retroFreeSpriteObjects( video );
 
 	if (video->rp.BitMap)
 	{
-		libBase-> IGraphics->FreeBitMap( video-> rp.BitMap );
+//		sys_free_bitmap( video-> rp.BitMap );
 		video -> rp.BitMap = NULL;
 	}
+#else
+#warning bitmap not freed
+#endif
 
 	for ( c = 0; c<3 ;c++) 
 	{
 		if (video -> rainbow[c].table)
 		{
-			libBase -> IExec ->sys_free (video -> rainbow[c].table);
+			sys_free (video -> rainbow[c].table);
 			video -> rainbow[c].table = NULL;
 		}
 	}
 
+
 	if (video->Memory)
 	{
-		libBase -> IExec ->sys_free (video->Memory);
+		sys_free (video->Memory);
 		video->Memory = NULL;
 	}
 
-	libBase -> IExec ->sys_free ( (void *) video );
+	sys_free ( (void *) video );
 }
 

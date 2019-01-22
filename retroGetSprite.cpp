@@ -13,17 +13,15 @@
  *
  */
 
+
+#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
-#include "libbase.h"
+#include <math.h>
+#include <string.h>
 
 /****** retromode/main/retroGetSprite ******************************************
 *
@@ -94,9 +92,7 @@ void retroGetSprite(
 		int old_frames = sprite->number_of_frames;
 		int new_frames_count  = image+1;
 
-		new_frames = sys_alloc_clear(  
-							sizeof(struct retroFrameHeader) *  new_frames_count,
-							AVT_Type, MEMF_SHARED, AVT_ClearWithValue, 0, TAG_END );
+		new_frames = (struct retroFrameHeader *) sys_alloc_clear( sizeof(struct retroFrameHeader) *  new_frames_count );
 
 		if (new_frames)
 		{
@@ -117,7 +113,7 @@ void retroGetSprite(
 
 	sizeOfChunky = frame -> bytesPerRow  * frame -> Height;
 	if ( frame -> data ) sys_free( (void *) frame -> data );
-	frame -> data = (char *) sys_alloc_clear(  sizeOfChunky, AVT_Type, MEMF_SHARED, AVT_ClearWithValue, 0, TAG_END );
+	frame -> data = (char *) sys_alloc_clear( sizeOfChunky );
 
 	{
 		int width = frame -> Width;

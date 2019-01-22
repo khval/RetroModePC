@@ -13,19 +13,15 @@
  *
  */
 
+#include "stdafx.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <exec/exec.h>
-#include <proto/exec.h>
-#include <dos/dos.h>
-#include <exec/types.h>
-#include <libraries/retromode.h>
-#include <proto/retromode.h>
-//include <proto/dos.h>
-#include <libbase.h>
+#include <retromode.h>
+#include <retromode_lib.h>
 #include <stdarg.h>
-#include <stdio.h>
+#include <math.h>
 #include <string.h>
+
 
 /****** retromode/main/retroLoadABKSprite ******************************************
 *
@@ -55,10 +51,8 @@
 *
 */
 
-#define AllocVecTags libBase->IExec->AllocVecTags
-#define sys_free libBase->IExec->sys_free
 
-struct retroSprite *read_icon_or_sprite( 	struct RetroLibrary *libBase , BPTR fd )
+struct retroSprite *read_icon_or_sprite( FILE *fd )
 {
 	int n;
 	int num;
@@ -72,27 +66,25 @@ struct retroSprite *read_icon_or_sprite( 	struct RetroLibrary *libBase , BPTR fd
 	short ECSColor;
 
 
-	sprite = AllocVecTags(  sizeof(struct retroSprite), AVT_Type, MEMF_SHARED, AVT_ClearWithValue, 0, TAG_END );
+	sprite = (struct retroSprite *) sys_alloc_clear( sizeof(struct retroSprite) );
 
 	if (!sprite) return NULL;
 
-	if ( libBase->IDOS->Read( fd, &sprite->number_of_frames,sizeof(sprite->number_of_frames)) == sizeof(sprite->number_of_frames) )
+	if ( fread( &sprite->number_of_frames,sizeof(sprite->number_of_frames), 1, fd ) == sizeof(sprite->number_of_frames) )
 	{
-		sprite->frames = AllocVecTags(  
-			sizeof(struct retroFrameHeader) * sprite->number_of_frames ,
-			AVT_Type, MEMF_SHARED, AVT_ClearWithValue, 0, TAG_END );
+		sprite->frames = (struct retroFrameHeader *) sys_alloc_clear( sizeof(struct retroFrameHeader) * sprite->number_of_frames );
 	}
 
 	for (n=0; n<sprite->number_of_frames; n++ )
 	{
 
-		if (libBase->IDOS->Read( fd, sprite->frames + n, sizeof(struct retroFrameHeaderShort)) == sizeof(struct retroFrameHeaderShort))
+		if (fread( sprite->frames + n, sizeof(struct retroFrameHeaderShort), 1, fd ) == sizeof(struct retroFrameHeaderShort))
 		{
 			sprite->frames[n].bytesPerRow = sprite->frames[n].PlanarXSize * 16 ;
 			sizeOfPlanar = sprite->frames[n].Height * (sprite->frames[n].PlanarXSize * 2 );
 			sizeOfChunky = sprite->frames[n].bytesPerRow  * sprite->frames[n].Height;
 	
-			sprite->frames[n].data = AllocVecTags(  sizeOfChunky, AVT_Type, MEMF_SHARED, AVT_ClearWithValue, 0, TAG_END );
+			sprite->frames[n].data = (char *) sys_alloc_clear(  sizeOfChunky );
 		}
 		else
 		{
@@ -102,7 +94,7 @@ struct retroSprite *read_icon_or_sprite( 	struct RetroLibrary *libBase , BPTR fd
 
 		if (sizeOfPlanar>0)
 		{
-			planar = AllocVecTags( sizeOfPlanar, 	AVT_Type, MEMF_SHARED, AVT_ClearWithValue, 0, TAG_END );
+			planar = (char *) sys_alloc_clear( sizeOfPlanar );
 			if (planar)
 			{
 				// reset convertion table
@@ -116,7 +108,7 @@ struct retroSprite *read_icon_or_sprite( 	struct RetroLibrary *libBase , BPTR fd
 
 				for (Plane = 0; Plane < sprite->frames[n].NumberOfPlanes; Plane++ )	
 				{
-					if (libBase->IDOS->Read( fd, planar, sizeOfPlanar ) == sizeOfPlanar) 
+					if (fread( planar, sizeOfPlanar, 1, fd ) == sizeOfPlanar) 
 					{
 						int y;
 						int source_BytesPerRow = sprite->frames[n].PlanarXSize*2;
@@ -162,7 +154,7 @@ struct retroSprite *read_icon_or_sprite( 	struct RetroLibrary *libBase , BPTR fd
 	// in doc it says 32 colors, but we are flexible.
 
 	num = 0;
-	while (libBase->IDOS->Read( fd, &ECSColor, 2 ) == 2)	
+	while ( fread( &ECSColor, 2, 1, fd ) == 2)	
 	{
 		ECSColorToRGB32( ECSColor, sprite -> palette[num] );
 		num++;
@@ -177,28 +169,28 @@ struct retroSprite * retroLoadABKSprite(
 {
 
 	struct retroSprite *sprite = NULL;
-	BPTR fd;
+	FILE *fd;
 	char file_id[5]; // 4 bytes (0 to 3) byte 5 (4)
 
-	fd = libBase->IDOS ->Open( (char *) filename,MODE_OLDFILE);
+	fd = fopen( (char *) filename,"r");
 
 	if (fd)
 	{
 		file_id[4]= 0;
 
-		if (libBase->IDOS->Read( fd, file_id, 4 ))	// reads 4 bytes but terminates on byte 5.
+		if ( fread( file_id, 4, 1, fd ))	// reads 4 bytes but terminates on byte 5.
 		{
 			if ((strcmp(file_id,"AmSp")==0) || (strcmp(file_id,"AmIc")==0))
 			{
-				sprite = read_icon_or_sprite( libBase, fd );
+				sprite = read_icon_or_sprite( fd );
 			}
 			else
 			{
-				libBase->IDOS->Printf("[%s]\n",file_id);
+				printf("[%s]\n",file_id);
 			}
 		}
 
-		libBase->IDOS->Close(fd);
+		fclose(fd);
 	}
 
 	return sprite;
