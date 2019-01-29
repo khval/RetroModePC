@@ -3,7 +3,7 @@
 
 #define BOOL bool
 
-	struct retroVideo * retroAllocVideo( struct Window * window);
+	struct retroVideo * retroAllocVideo();
 	void retroFreeVideo( struct retroVideo * video);
 	void retroClearVideo( struct retroVideo * video);
 	void retroDrawVideo( struct retroVideo * video);
