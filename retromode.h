@@ -78,8 +78,10 @@ struct retroShiftColors
 
 struct retroEngine
 {
+#ifdef __amigaos4__
 	struct RastPort rp;
 	struct Window *window;
+#endif
 	unsigned int width;
 	unsigned int height;
 };
