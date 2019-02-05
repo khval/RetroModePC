@@ -88,8 +88,13 @@ struct retroSprite * retroLoadSprite( void *fd, cust_fread_t cust_fread)
 			{
 
 #if defined(__LITTLE_ENDIAN__)
-		sprite->frames[n].PlanarXSize = __bswap_16(sprite->frames[n].PlanarXSize);
-		sprite->frames[n].Height = __bswap_16(sprite->frames[n].Height);
+				sprite->frames[n].PlanarXSize = __bswap_16(sprite->frames[n].PlanarXSize);
+				sprite->frames[n].Height = __bswap_16(sprite->frames[n].Height);
+				sprite->frames[n].NumberOfPlanes = __bswap_16(sprite->frames[n].NumberOfPlanes);
+				sprite->frames[n].XHotSpot = __bswap_16(sprite->frames[n].XHotSpot);
+				sprite->frames[n].YHotSpot = __bswap_16(sprite->frames[n].YHotSpot);
+
+				printf("size: %d,%d colors %d\n",sprite->frames[n].PlanarXSize * 16, sprite->frames[n].Height,1<<sprite->frames[n].NumberOfPlanes );
 #endif
 
 				sprite->frames[n].bytesPerRow = sprite->frames[n].PlanarXSize * 16 ;
