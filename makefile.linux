@@ -2,6 +2,8 @@
 
 define = 
 
+config_tools = config_tools/check_cpu.tool.cpp
+
 modules = AfterEffectAdjustRGB.cpp \
 		AfterEffectDrawSrpites.cpp \
 		AfterEffectScanline.cpp \
@@ -90,13 +92,19 @@ modules = AfterEffectAdjustRGB.cpp \
 		retroAllocSpriteObjects.cpp \
 		retroZoom.cpp 
 
-all: $(modules:.cpp=.o)
+all: config.h $(modules:.cpp=.o)
 	ar -rsc libretromode.a $(modules:.cpp=.o) 
-
 
 %.o: %.cpp
 		g++ $(define) -c $(@:.o=.cpp) -o $@
 
+config_tools/check_cpu.tool.exe:		config_tools/check_cpu.tool.cpp 
+	g++ $(warnings) -O2 -D__USE_INLINE__ $(@:.exe=.cpp) -o $@
+
+config.h: $(config_tools:.tool.cpp=.tool.exe)
+	echo > config.h
+	config_tools/check_cpu.tool.exe >> config.h
+
 
 clean:
-		rm *.o *.a
+		rm config.h *.o *.a
