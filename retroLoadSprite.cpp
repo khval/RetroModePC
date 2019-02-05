@@ -5,7 +5,9 @@
 #include <string.h>
 #include <vector>
 #include <math.h>
+#include <byteswap.h>
 
+#include "config.h"
 #include "retromode.h"
 #include "retromode_lib.h"
 
@@ -66,6 +68,11 @@ struct retroSprite * retroLoadSprite( void *fd, cust_fread_t cust_fread)
 
 	if ( cust_fread( &sprite->number_of_frames,sizeof(sprite->number_of_frames), 1, fd ) == 1 )
 	{
+
+#if defined(__LITTLE_ENDIAN__)
+		sprite->number_of_frames = __bswap_16(sprite->number_of_frames);
+#endif
+
 		printf("Load sprite->number_of_frames %d\n",  sprite->number_of_frames);
 
 		sprite->frames = (struct retroFrameHeader *) sys_alloc_clear(sizeof(struct retroFrameHeader) * sprite->number_of_frames);
@@ -79,6 +86,12 @@ struct retroSprite * retroLoadSprite( void *fd, cust_fread_t cust_fread)
 		{
 			if (cust_fread( sprite->frames + n, sizeof(struct retroFrameHeaderShort), 1, fd ) == 1 )
 			{
+
+#if defined(__LITTLE_ENDIAN__)
+		sprite->frames[n].PlanarXSize = __bswap_16(sprite->frames[n].PlanarXSize);
+		sprite->frames[n].Height = __bswap_16(sprite->frames[n].Height);
+#endif
+
 				sprite->frames[n].bytesPerRow = sprite->frames[n].PlanarXSize * 16 ;
 				sizeOfPlanar = sprite->frames[n].Height * (sprite->frames[n].PlanarXSize * 2 );
 				sizeOfChunky = sprite->frames[n].bytesPerRow  * sprite->frames[n].Height;
