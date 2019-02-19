@@ -89,14 +89,14 @@ void retroGetSprite(
 	{
 		int n;
 		struct retroFrameHeader *new_frames;
-		int old_frames = sprite->number_of_frames;
+		int old_frames_count = sprite->number_of_frames;
 		int new_frames_count  = image+1;
 
 		new_frames = (struct retroFrameHeader *) sys_alloc_clear( sizeof(struct retroFrameHeader) *  new_frames_count );
 
 		if (new_frames)
 		{
-			memcpy( new_frames, sprite -> frames, sizeof(struct retroFrameHeader) *  old_frames );
+			memcpy( new_frames, sprite -> frames, sizeof(struct retroFrameHeader) *  old_frames_count );
 			sys_free( sprite -> frames );
 			sprite -> frames = new_frames;
 			sprite -> number_of_frames = new_frames_count;
