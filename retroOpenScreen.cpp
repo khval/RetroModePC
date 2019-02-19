@@ -76,6 +76,7 @@ struct retroScreen * retroOpenScreen(
 		screen -> currentTextWindow = NULL;
 		screen -> textWindows = NULL;
 		screen -> allocatedTextWindows = 0;
+		screen -> double_buffer_draw_frame = 0;
 
 		screen -> Memory[0] = (unsigned char *) sys_alloc_clear( screen -> bytesPerRow * (screen -> realHeight+1) );
 
